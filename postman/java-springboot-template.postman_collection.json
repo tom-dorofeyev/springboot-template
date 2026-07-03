@@ -1,0 +1,314 @@
+{
+  "info": {
+    "name": "Java Spring Boot Template",
+    "description": "REST API collection for the Java Spring Boot Template application.\n\n**Demo Credentials:**\n- `admin` / `admin` (ROLE_ADMIN — full CRUD)\n- `user` / `user` (ROLE_USER — read-only)\n\n**Authentication:**\nSend a Login request first; the JWT token is automatically saved and used by all other requests.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "superheroId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "villainId",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var json = pm.response.json();",
+                  "    pm.collectionVariables.set(\"token\", json.token);",
+                  "    console.log(\"JWT token saved to collection variable\");",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/logout",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "logout"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Superheroes",
+      "item": [
+        {
+          "name": "Create Superhero",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    var json = pm.response.json();",
+                  "    pm.collectionVariables.set(\"superheroId\", json.id);",
+                  "    console.log(\"Superhero ID saved: \" + json.id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Peter Parker\",\n  \"alias\": \"Spider-Man\",\n  \"powers\": [\"Wall-crawling\", \"Spider-sense\", \"Super strength\"],\n  \"strengthLevel\": 8\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/superheroes",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "superheroes"]
+            }
+          }
+        },
+        {
+          "name": "Get All Superheroes",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/superheroes",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "superheroes"]
+            }
+          }
+        },
+        {
+          "name": "Get Superhero By ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/superheroes/{{superheroId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "superheroes", "{{superheroId}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Superhero",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Peter Parker\",\n  \"alias\": \"Spider-Man\",\n  \"powers\": [\"Wall-crawling\", \"Spider-sense\", \"Super strength\", \"Web-shooting\"],\n  \"strengthLevel\": 9\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/superheroes/{{superheroId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "superheroes", "{{superheroId}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Superhero",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/superheroes/{{superheroId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "superheroes", "{{superheroId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Villains",
+      "item": [
+        {
+          "name": "Create Villain",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    var json = pm.response.json();",
+                  "    pm.collectionVariables.set(\"villainId\", json.id);",
+                  "    console.log(\"Villain ID saved: \" + json.id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Norman Osborn\",\n  \"villainName\": \"Green Goblin\",\n  \"powers\": [\"Glider flight\", \"Explosive pumpkins\", \"Enhanced strength\"],\n  \"dangerLevel\": 9\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/villains",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "villains"]
+            }
+          }
+        },
+        {
+          "name": "Get All Villains",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/villains",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "villains"]
+            }
+          }
+        },
+        {
+          "name": "Get Villain By ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/villains/{{villainId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "villains", "{{villainId}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Villain",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Norman Osborn\",\n  \"villainName\": \"Green Goblin\",\n  \"powers\": [\"Glider flight\", \"Explosive pumpkins\", \"Enhanced strength\", \"Cackling\"],\n  \"dangerLevel\": 10\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/villains/{{villainId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "villains", "{{villainId}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Villain",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/villains/{{villainId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "villains", "{{villainId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/actuator/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["actuator", "health"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

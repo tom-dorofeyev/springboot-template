@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="SuperheroesApplication (mongo)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="superheroes" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.superheroes.SuperheroesApplication" />
+    <option name="ACTIVE_PROFILES" value="mongo" />
+    <option name="ALTERNATIVE_JRE_PATH" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+      <option name="RunConfigurationTask" enabled="true" run_configuration_name="MongoDB (docker-compose)" />
+    </method>
+  </configuration>
+</component>

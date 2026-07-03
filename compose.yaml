@@ -1,0 +1,9 @@
+services:
+  mongodb:
+    image: 'mongo:7'
+    environment:
+      - 'MONGO_INITDB_DATABASE=superheroes'
+      - 'MONGO_INITDB_ROOT_PASSWORD=superhero'
+      - 'MONGO_INITDB_ROOT_USERNAME=superhero'
+    ports:
+      - '27017'

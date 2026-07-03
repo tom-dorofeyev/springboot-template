@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="SuperheroesApplication (inmemory)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="superheroes" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.superheroes.SuperheroesApplication" />
+    <option name="ACTIVE_PROFILES" value="inmemory" />
+    <option name="ALTERNATIVE_JRE_PATH" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
