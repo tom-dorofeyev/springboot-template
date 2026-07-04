@@ -1,4 +1,4 @@
-# Superheroes CRUD — Spring Boot Clean Architecture Template
+# Superheroes CRUD Spring Boot Clean Architecture Template
 
 A Java Spring Boot 3.5 template demonstrating Clean Architecture with swappable persistence backends, dual authentication, and structured tracing.
 
